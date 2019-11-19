@@ -5,5 +5,3 @@ if (workbox) {
 } else {
   console.log(`Boo! Workbox didn't load 😬`);
 }
-
-console.log('Hello from service-worker.js');
