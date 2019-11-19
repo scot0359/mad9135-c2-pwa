@@ -19,6 +19,9 @@ const app = {
                 weatherList.appendChild(h2)
 
             })
+            .catch(function(error){
+                console.log(error)
+            })
 
     },
 
