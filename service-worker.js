@@ -37,19 +37,25 @@ workbox.routing.registerRoute(
       ],
     })
   );
-  
-  // Use a stale-while-revalidate strategy for all other requests.
-  workbox.routing.setDefaultHandler(
-    new workbox.strategies.StaleWhileRevalidate()
-  );
 
   workbox.routing.setCatchHandler(({event}) => {
+    // The FALLBACK_URL entries must be added to the cache ahead of time, either via runtime
+    // or precaching.
+    // If they are precached, then call workbox.precaching.getCacheKeyForURL(FALLBACK_URL)
+    // to get the correct cache key to pass in to caches.match().
+    console.log("routing")
+    workbox.precaching.getCacheKeyForURL('night.webp')
+    // Use event, request, and url to figure out how to respond.
+    // One approach would be to use request.destination, see
+    // https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
     switch (event.request.destination) {
-      case 'image':
-        return caches.match('images/night.webp');
+        
+      case 'images':
+        return caches.match('night.webp');
       break;
   
       default:
+        // If we don't have a fallback, just return an error response.
         return Response.error();
     }
   });
@@ -69,15 +75,19 @@ workbox.routing.registerRoute(
 workbox.precaching.precacheAndRoute([
   {
     "url": "app.js",
-    "revision": "3c99cc78c511894b7c961ef9d663bde4"
+    "revision": "720b9e66ae565147c54e56eb31ec021f"
   },
   {
     "url": "images/day.jpg",
     "revision": "e05992856972218d1624c8754c36f117"
   },
   {
+    "url": "images/night.webp",
+    "revision": "0959737b870e72f6989532344e2c92f5"
+  },
+  {
     "url": "index.html",
-    "revision": "852deb7827af47776e59b3409635c972"
+    "revision": "d3127a66b4321602c585276b553fbdf3"
   },
   {
     "url": "main.css",
@@ -85,10 +95,10 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "service-worker-src.js",
-    "revision": "f6532c4f26501d40bb0933466565dddb"
+    "revision": "836fd485c99ec3376f5094d2f3d5155c"
   },
   {
     "url": "workbox-conf.js",
-    "revision": "ca94431e4adec3f428b694ab5a8a158e"
+    "revision": "0a55081d808167996b1e44e2c8e35771"
   }
 ]);
