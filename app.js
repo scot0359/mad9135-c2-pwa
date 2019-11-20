@@ -28,5 +28,3 @@ const app = {
 }
 
 app.getWeather()
-
-  

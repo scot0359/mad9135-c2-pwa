@@ -1,0 +1,22 @@
+{
+  "name": "mad9135-c2-pwa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scot0359/mad9135-c2-pwa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scot0359/mad9135-c2-pwa/issues"
+  },
+  "homepage": "https://github.com/scot0359/mad9135-c2-pwa#readme",
+  "devDependencies": {
+    "workbox-cli": "^4.3.1"
+  }
+}
