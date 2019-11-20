@@ -25,6 +25,19 @@ workbox.routing.registerRoute(
     })
 );
 
+workbox.routing.registerRoute(
+    /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
+    new workbox.strategies.CacheFirst({
+      cacheName: 'images',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 60,
+          maxAgeSeconds: 5 * 60 , // 30 Days
+        }),
+      ],
+    })
+  );
+
 //weather cache
 workbox.routing.registerRoute(
     new RegExp('https://api.openweathermap.org/data/2.5/weather'),

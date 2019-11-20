@@ -25,6 +25,35 @@ workbox.routing.registerRoute(
     })
 );
 
+workbox.routing.registerRoute(
+    /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
+    new workbox.strategies.CacheFirst({
+      cacheName: 'images',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 60,
+          maxAgeSeconds: 5 * 60 , // 30 Days
+        }),
+      ],
+    })
+  );
+  
+  // Use a stale-while-revalidate strategy for all other requests.
+  workbox.routing.setDefaultHandler(
+    new workbox.strategies.StaleWhileRevalidate()
+  );
+
+  workbox.routing.setCatchHandler(({event}) => {
+    switch (event.request.destination) {
+      case 'image':
+        return caches.match('images/night.webp');
+      break;
+  
+      default:
+        return Response.error();
+    }
+  });
+
 //weather cache
 workbox.routing.registerRoute(
     new RegExp('https://api.openweathermap.org/data/2.5/weather'),
@@ -43,8 +72,12 @@ workbox.precaching.precacheAndRoute([
     "revision": "3c99cc78c511894b7c961ef9d663bde4"
   },
   {
+    "url": "images/day.jpg",
+    "revision": "e05992856972218d1624c8754c36f117"
+  },
+  {
     "url": "index.html",
-    "revision": "cc9a043cc7d0ad1c39b200e190ef2bdc"
+    "revision": "852deb7827af47776e59b3409635c972"
   },
   {
     "url": "main.css",
@@ -52,10 +85,10 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "service-worker-src.js",
-    "revision": "c9cf25ac38a9b72dd143985955061c79"
+    "revision": "f6532c4f26501d40bb0933466565dddb"
   },
   {
     "url": "workbox-conf.js",
-    "revision": "28ccbe537626a8153f3c9a3ca467ad16"
+    "revision": "ca94431e4adec3f428b694ab5a8a158e"
   }
 ]);
