@@ -73,10 +73,6 @@ workbox.precaching.precacheAndRoute([
     "revision": "f341a705e879092ce8ff6c031d8eaed8"
   },
   {
-    "url": "offline.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "service-worker-src.js",
     "revision": "3ffe1464bd303084395b8fe98868ecf0"
   },
