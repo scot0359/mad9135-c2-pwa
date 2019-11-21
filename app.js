@@ -32,15 +32,15 @@ const app = {
 
     updateIndicator() {
         if(!navigator.onLine) {
-            document.getElementById("offline-img").classList.remove('toggle')
-            document.getElementById("online-img").classList.add('toggle')
+            document.getElementById("online-img").src = "images/night.webp"
+            document.getElementById("online-img").width = "720"
+            document.getElementById("online-img").height = "720"
         } else {
-            document.getElementById("offline-img").classList.add('toggle')
-            document.getElementById("online-img").classList.remove('toggle')
+            document.getElementById("online-img").src = "images/day.jpg"
+            document.getElementById("online-img").width = "720"
+            document.getElementById("online-img").height = "480"
         }
     }
-    
-
 }
 
 app.init()

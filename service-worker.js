@@ -18,13 +18,14 @@ workbox.routing.registerRoute(
         plugins: [
             new workbox.expiration.Plugin({
                 maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
-                maxEntries: 20, 
+                maxEntries: 50, 
                 purgeOnQuotaError: true
             })
         ]
     })
 );
 
+//image cache
 workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
     new workbox.strategies.CacheFirst({
@@ -37,28 +38,6 @@ workbox.routing.registerRoute(
       ],
     })
   );
-
-  workbox.routing.setCatchHandler(({event}) => {
-    // The FALLBACK_URL entries must be added to the cache ahead of time, either via runtime
-    // or precaching.
-    // If they are precached, then call workbox.precaching.getCacheKeyForURL(FALLBACK_URL)
-    // to get the correct cache key to pass in to caches.match().
-    console.log("routing")
-    workbox.precaching.getCacheKeyForURL('night.webp')
-    // Use event, request, and url to figure out how to respond.
-    // One approach would be to use request.destination, see
-    // https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
-    switch (event.request.destination) {
-        
-      case 'images':
-        return caches.match('night.webp');
-      break;
-  
-      default:
-        // If we don't have a fallback, just return an error response.
-        return Response.error();
-    }
-  });
 
 //weather cache
 workbox.routing.registerRoute(
@@ -75,7 +54,7 @@ workbox.routing.registerRoute(
 workbox.precaching.precacheAndRoute([
   {
     "url": "app.js",
-    "revision": "720b9e66ae565147c54e56eb31ec021f"
+    "revision": "d5b3aeee11657adeadbf94716312f9b3"
   },
   {
     "url": "images/day.jpg",
@@ -87,15 +66,19 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "index.html",
-    "revision": "d3127a66b4321602c585276b553fbdf3"
+    "revision": "4d643ecbb81a8c7e2f1085af79e596c0"
   },
   {
     "url": "main.css",
+    "revision": "f341a705e879092ce8ff6c031d8eaed8"
+  },
+  {
+    "url": "offline.html",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "service-worker-src.js",
-    "revision": "836fd485c99ec3376f5094d2f3d5155c"
+    "revision": "3ffe1464bd303084395b8fe98868ecf0"
   },
   {
     "url": "workbox-conf.js",
